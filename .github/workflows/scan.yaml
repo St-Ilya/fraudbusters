@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
 
       - name: Run Semgrep
       # Как запустить все правила ?
@@ -20,8 +21,10 @@ jobs:
         run: semgrep --config=p/java
 
       - uses: actions/checkout@v4
+        with:
+          config-file: .semgrep.yml
       # то что ниже работает ?
-      - run: semgrep ci --sarif --config > semgrep.sarif
+      - run: semgrep ci --sarif --config .semgrep.yml > semgrep.sarif
 
       - name: publish code scanning alerts
         uses: github/codeql-action/upload-sarif@v2
