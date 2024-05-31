@@ -12,12 +12,15 @@ jobs:
 
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
-     # - name: Run Semgrep
+      - name: Run Semgrep
+        run: semgrep --config=p/ci
+
+      - uses: actions/checkout@v4
       - run: semgrep ci --sarif > semgrep.sarif
 
-      - name: publish code scanning alerts
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: semgrep.sarif
+     # - name: publish code scanning alerts
+     #   uses: github/codeql-action/upload-sarif@v2
+     #   with:
+     #     sarif_file: semgrep-report.sarif
