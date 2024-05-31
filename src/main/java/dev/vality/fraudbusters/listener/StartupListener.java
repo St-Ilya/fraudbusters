@@ -115,8 +115,6 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 
             ExecutorService executorService = Executors.newFixedThreadPool(COUNT_PRELOAD_TASKS);
 
-            String sqling = "SELECT * FROM BD WHERE ID" + "id" ;
-
             tasks.addAll(List.of(
                             () -> waitPreLoad(latch,
                                     templateListenerFactory,
@@ -178,6 +176,13 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
             preloadListener.preloadToLastOffsetInPartition(consumer, topic, 0, listener::listen);
         }
         latch.countDown();
+    }
+
+    public List<FromBd> testSQLinj(String vvvvId) {
+        String sqlInj = "select * from bdID = '" + "'";
+        String twoInj = "SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1";
+        String thirdInj = "SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'";
+        return sqlInj;
     }
 
 }
