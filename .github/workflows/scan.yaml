@@ -23,7 +23,7 @@ jobs:
       # то что ниже работает ?
       - run: semgrep ci --sarif > semgrep.sarif
 
-     # - name: publish code scanning alerts
-     #   uses: github/codeql-action/upload-sarif@v2
-     #   with:
-     #     sarif_file: semgrep-report.sarif
+      - name: publish code scanning alerts
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: semgrep.sarif
