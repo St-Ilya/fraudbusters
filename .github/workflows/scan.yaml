@@ -15,4 +15,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Semgrep
-        run: semgrep --config=my_rules.yaml /path/to/code --sarif-report=output.sarif
+        run: semgrep --config=my_rules.yaml /path/to/code
+      
+      - name: Convert Semgrep results to SARIF
+        run: semgrep --sarif --config .semgrep.yml > semgrep-results.sarif
+
+      - name: Upload SARIF results
+        uses: actions/upload-artifact@v3
+        with:
+          name: semgrep-results
+          path: semgrep-results.sarif
