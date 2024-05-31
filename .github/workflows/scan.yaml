@@ -14,11 +14,8 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
               
-            - name: Semgrep scan
-              with:
-                  config-file: .semgrep.yaml
-                  exclude: |
-                      src/generated
+            - name: Run Semgrep
+              run: semgrep --config semgrep.yml .
             
             - name: Convert Semgrep results to SARIF
               run: semgrep --sarif --config .semgrep.yaml > semgrep-results.sarif
