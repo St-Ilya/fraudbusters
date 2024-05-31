@@ -16,12 +16,9 @@ jobs:
 
       - name: Run Semgrep
         run: semgrep --config=p/java
-      
-      - name: Convert Semgrep results to SARIF
-        run: semgrep --sarif --config .semgrep.yml > semgrep-results.sarif
 
-      - name: Upload SARIF results
-        uses: actions/upload-artifact@v3
+      - name: publish code scanning alerts
+        uses: github/codeql-action/upload-sarif@v2
         with:
-          name: semgrep-results
-          path: semgrep-results.sarif
+          sarif_file: report.sarif
+          category: semgrep
