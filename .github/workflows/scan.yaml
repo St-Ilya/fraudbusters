@@ -15,11 +15,7 @@ jobs:
               uses: actions/checkout@v2
               
             - name: full scan
-              run: |
-                semgrep \
-                    --sarif --output report
-                  --metrics=off \
-                  --config="p/default"
+              run: semgrep scan --sarif --sarif-output=report.sarif
   
             - name: publish code scanning alerts
               uses: github/codeql-action/upload-sarif@v2
