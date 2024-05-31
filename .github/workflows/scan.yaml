@@ -7,18 +7,23 @@ on:
 jobs:
     semgrep:
         runs-on: ubuntu-20.04
-        container:
-          image: returntocorp/semgrep
                 
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
               
-            - name: full scan
-              run: semgrep scan --sarif --sarif-output=report.sarif
-  
-            - name: publish code scanning alerts
-              uses: github/codeql-action/upload-sarif@v2
+            - name: Semgrep scan
+              uses: returntocorp/semgrep-action@v3
               with:
-                sarif_file: report.sarif
-                category: semgrep
+                  config-file: .semgrep.yaml
+                  exclude: |
+                      src/generated
+            
+            - name: Convert Semgrep results to SARIF
+              run: semgrep --sarif --config .semgrep.yaml > semgrep-results.sarif
+  
+            - name: Upload SARIF results
+              uses: actions/upload-artifacts@v3
+              with:
+                name: semgrep-results
+                path: semgrep-results.sarif
