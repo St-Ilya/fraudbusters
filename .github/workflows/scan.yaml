@@ -12,16 +12,11 @@ jobs:
                 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
-              
-            - name: Run Semgrep
-              run: semgrep --config semgrep.yaml
-            
-            - name: Convert Semgrep results to SARIF
-              run: semgrep --sarif --config .semgrep.yaml > semgrep-results.sarif
-  
+            - uses: actions/checkout@v4
+            - run: semgrep ci --sarif > semgrep.sarif
+
+              # step on
             - name: Upload SARIF results
               uses: github/codeql-action/upload-sarif@v2
               with:
                 sarif_file: report.sarif
-                category: semgrep
