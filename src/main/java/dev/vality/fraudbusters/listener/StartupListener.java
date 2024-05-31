@@ -115,6 +115,8 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 
             ExecutorService executorService = Executors.newFixedThreadPool(COUNT_PRELOAD_TASKS);
 
+            String sqling = "SELECT * FROM BD WHERE ID" + "id" ;
+
             tasks.addAll(List.of(
                             () -> waitPreLoad(latch,
                                     templateListenerFactory,
