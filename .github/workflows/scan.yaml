@@ -15,9 +15,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Semgrep
+      # Как запустить все правила ?
+      # p/CI требует учетку
         run: semgrep --config=p/java
 
       - uses: actions/checkout@v4
+      # то что ниже работает ?
       - run: semgrep ci --sarif > semgrep.sarif
 
      # - name: publish code scanning alerts
