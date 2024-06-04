@@ -18,7 +18,7 @@ jobs:
       - name: Run Semgrep
       # Как запустить все правила ?
       # p/CI требует учетку
-        run: semgrep --config=p/java --output semgrep.sarif
+        run: semgrep --config=p/java --sarif-output=semgrep.sarif
 
       - name: publish code scanning alerts
         uses: github/codeql-action/upload-sarif@v3.25.7
