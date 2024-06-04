@@ -21,13 +21,14 @@ jobs:
             --metrics=off \
             --config="p/default"
 
-      - name: save report
+      - name: Save report
         uses: actions/upload-artifact@v3
         with:
           name: semgrep.sarif
           path: semgrep.sarif
 
-      - name: publish code scanning alerts
+      - name: Scanning alerts
         uses: github/codeql-action/upload-sarif@v3.25.7
         with:
           sarif_file: semgrep.sarif
+          category: semgrep
