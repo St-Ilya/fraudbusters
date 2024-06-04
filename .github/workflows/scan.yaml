@@ -13,20 +13,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
 
       - name: Run Semgrep
-      # Как запустить все правила ?
-      # p/CI требует учетку
-        run: semgrep --config=auto --sarif --sarif-output=semgrep.sarif
-
-      - name: publish code scanning alerts
-        uses: github/codeql-action/upload-sarif@v3.25.7
-        with:
-          sarif_file: semgrep.sarif
+        run: | 
+          semgrep \
+            --sarif --output semgrep.sarif \
+            --metrics=off \
+            --config="p/default"
 
       - name: save report
         uses: actions/upload-artifact@v3
         with:
           name: semgrep.sarif
           path: semgrep.sarif
+
+      - name: publish code scanning alerts
+        uses: github/codeql-action/upload-sarif@v3.25.7
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
