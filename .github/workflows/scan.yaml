@@ -24,7 +24,7 @@ jobs:
         with:
           config-file: .semgrep.yml
       # то что ниже работает ?
-      - run: semgrep ci --sarif --config .semgrep.yml > semgrep.sarif
+      - run: semgrep --sarif --config .semgrep.yml > semgrep.sarif
 
       - name: publish code scanning alerts
         uses: github/codeql-action/upload-sarif@v2
