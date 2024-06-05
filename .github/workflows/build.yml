@@ -6,5 +6,14 @@ on:
       - '*'
 
 jobs:
-  build:
-    uses: valitydev/java-workflow/.github/workflows/maven-service-build.yml@sarif-try
+  composite_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: run service build
+        uses: valitydev/java-workflow/.github/workflows/maven-service-build.yml@sec-24
+
+      - name: run semgrep scan
+        uses: valitydev/java-workflow/.github/workflows/semgrep-scan.yml@sec-24
