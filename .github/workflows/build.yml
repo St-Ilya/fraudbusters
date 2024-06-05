@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run service build
-        uses: valitydev/java-workflow/.github/workflows/maven-service-build.yml@sarif-try
+        uses: valitydev/java-workflow/.github/workflows/maven-service-build.yml@v3
 
   semgrep_scan_job:
     runs-on: ubuntu-latest
