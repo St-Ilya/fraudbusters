@@ -1,10 +1,10 @@
-name: Semgrep scan
+name: Maven Build Artifact
 
 on:
-    pull_request:
-        branches:
-            - '*'
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
-    semgrep-scan:
-        uses: valitydev/java-workflow/.github/workflows/semgrep-scan.yml@sec-24
+  build:
+    uses: valitydev/java-workflow/.github/workflows/semgrep-scan.yml@sec-24
