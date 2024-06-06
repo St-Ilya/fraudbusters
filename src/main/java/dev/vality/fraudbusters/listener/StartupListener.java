@@ -88,27 +88,22 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
                                 latch,
                                 timeTemplateListenerFactory,
                                 kafkaTopics.getFullTemplate(),
-                                timeTemplateListener
-                        ),
+                                timeTemplateListener),
                         () -> waitPreLoad(
                                 latch,
                                 timeReferenceListenerFactory,
                                 kafkaTopics.getFullReference(),
-                                timeTemplateReferenceListener
-                        ),
+                                timeTemplateReferenceListener),
                         () -> waitPreLoad(
                                 latch,
                                 timeGroupListenerFactory,
                                 kafkaTopics.getFullGroupList(),
-                                timeGroupListener
-                        ),
+                                timeGroupListener),
                         () -> waitPreLoad(
                                 latch,
                                 timeGroupReferenceListenerFactory,
                                 kafkaTopics.getFullGroupReference(),
-                                timeGroupReferenceListener
-                        )
-                ));
+                                timeGroupReferenceListener)));
             } else {
                 latch = new CountDownLatch(COUNT_PRELOAD_TASKS);
             }
@@ -116,25 +111,21 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
             ExecutorService executorService = Executors.newFixedThreadPool(COUNT_PRELOAD_TASKS);
 
             tasks.addAll(List.of(
-                            () -> waitPreLoad(latch,
-                                    templateListenerFactory,
-                                    kafkaTopics.getTemplate(),
-                                    templateListener),
-                            () -> waitPreLoad(
-                                    latch,
-                                    referenceListenerFactory,
-                                    kafkaTopics.getReference(),
-                                    templateReferenceListener
-                            ),
-                            () -> waitPreLoad(latch, groupListenerFactory, kafkaTopics.getGroupList(), groupListener),
-                            () -> waitPreLoad(
-                                    latch,
-                                    groupReferenceListenerFactory,
-                                    kafkaTopics.getGroupReference(),
-                                    groupReferenceListener
-                            )
-                    )
-            );
+                    () -> waitPreLoad(latch,
+                            templateListenerFactory,
+                            kafkaTopics.getTemplate(),
+                            templateListener),
+                    () -> waitPreLoad(
+                            latch,
+                            referenceListenerFactory,
+                            kafkaTopics.getReference(),
+                            templateReferenceListener),
+                    () -> waitPreLoad(latch, groupListenerFactory, kafkaTopics.getGroupList(), groupListener),
+                    () -> waitPreLoad(
+                            latch,
+                            groupReferenceListenerFactory,
+                            kafkaTopics.getGroupReference(),
+                            groupReferenceListener)));
 
             tasks.forEach(executorService::submit);
             long timeout = preloadTimeout * COUNT_PRELOAD_TASKS;
@@ -148,8 +139,7 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
             log.info(
                     "StartupListener load pool payment template size: {} templates: {}",
                     templatePoolImpl.size(),
-                    templatePoolImpl
-            );
+                    templatePoolImpl);
         } catch (InterruptedException e) {
             log.error("StartupListener onApplicationEvent e: ", e);
             Thread.currentThread().interrupt();
@@ -163,8 +153,7 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
         streamManager.createStream(
                 kafkaTopics.getFullGroupReference(),
                 kafkaTopics.getGroupReference(),
-                "group-ref-stream"
-        );
+                "group-ref-stream");
     }
 
     private void waitPreLoad(
@@ -177,34 +166,4 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
         }
         latch.countDown();
     }
-
-    public List<FromBd> testSQLinj(String vvvvId) {
-        String sqlInj = "select * from bdID = '" + "'";
-        String twoInj = "SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1";
-        String thirdInj = "SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'";
-        return sqlInj;
-    }
-
-}
-
-class SqlInjTest {
-    public static List<Employee> func(String name) {
-    String sql = "select * from employee where name ='" + name + "'";
-    Statement dataSource;
-    try (Connection c = dataSource.getConnection();
-    ResultSet rs = c.createStatement().executeQuery(sql)) {
-        List<Employee> employees = new ArrayList<>();
-        while (rs.next()) {
-            employees.add(new Employee(
-            rs.getLong("id"),
-            rs.getString("name"),
-            rs.getString("password"),
-            Role.valueOf(rs.getString("role"))
-            ));
-        }
-        return employees;
-    } catch (SQLException ex) {
-        throw new RuntimeException(ex);
-    }
-    }   
 }
