@@ -14,7 +14,6 @@ jobs:
 
   semgrep_scan_job:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: run semgrep scan
         uses: valitydev/java-workflow/.github/workflows/semgrep-scan.yml@sec-24
