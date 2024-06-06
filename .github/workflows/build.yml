@@ -7,13 +7,4 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: run service build
-        uses: valitydev/java-workflow/.github/workflows/maven-service-build.yml@sec-24
-
-  semgrep_scan_job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: run semgrep scan
-        uses: valitydev/java-workflow/.github/workflows/semgrep-scan.yml@sec-24
+    uses: valitydev/java-workflow/.github/workflows/maven-service-build.yml@sec-24
