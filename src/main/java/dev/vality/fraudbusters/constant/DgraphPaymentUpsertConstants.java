@@ -22,4 +22,6 @@ public final class DgraphPaymentUpsertConstants {
     public final String accountCurrencyUid = "sourceAccountCurrencyUid";
     public final String cryptoCurrencyUid = "sourceCryptoCurrencyUid";
 
+    public final String aTtt = "rr";
+
 }
